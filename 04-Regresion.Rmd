@@ -1,0 +1,94 @@
+# Regresion
+
+
+
+## Regresión Simple
+
+## Regresión Multiple  
+## REGRESION
+
+	Las islas Galapagos constituyen un archipilago del oceano Pacifico ubicado a 972 km de la costa de Ecuador. Está conformado por trece islas grandes con una superficie mayor a 10 km^2, seis islas medianas con una superficie de 1 km a 10 km^2 y otros 215 islotes de tamaño pequeño. En la base de datos "gala" se encuentran la informacion de 30 islas e islotes de Galapagos y 7 variables en el conjunto de datos. Para el desarrollo de este punto:  
+	
+install.packages("faraway")  
+
+library(faraway)  
+```{r,echo=t}
+library(faraway)
+
+```
+Cargar el data frame. gala
+```{r,echo=T}
+galapagos<- gala
+head(galapagos,4)
+```
+###Descripción    
+**Species**: a cantidad de especies de plantas encontradas en la isla  
+**Endemics**: distribucion de especies que se encuentran confinados a un contorno geografico reducido, y que no se hallan de forma natural en ninguna otra region del mundo.    
+**Atrea**: el área de la isla ($km^2$)   
+**Elevation**: la elevacion mas alta de la isla (m)  
+**Nearest**:la distancia desde la isla mas cercana (km)    
+**Scruz**: la distancia desde la isla de Santa Cruz (km)  
+**Adyacent**: el ?rea de la isla adyacente (km cuadrado)    
+  
+    
+Cuál variable tiene una correlación más significativa con la variable especies?
+```{r,echo=TRUE}
+pairs(galapagos)
+```
+
+### Correlacion
+ ¿Que tipo de pruebas debe realizar, antes de evaluar la correlación?   
+ Teniendo en cuenta la correlación entre las variables especies y elevation, considera que es significativa?  
+ 
+   
+```{r,echo=T}
+cor(galapagos, method = "spearman")
+```
+Analice,interpreta y comente la correlación entre especies  y las otras variables    
+
+Plantee las pruebas de hipotesis y ejecutelas en R para probar la significancia de la correlación de las variables explicativas con la variable dependiente: Especies
+
+### Modelamiento  lineal 
+Teniendo en cuenta, el conjunto de variables que podemos decir de las variables explicativas, segun la prueba F
+```{r,echo=TRUE}
+attach(galapagos)
+modelo_completo<- lm(galapagos$Species~ galapagos$Area+galapagos$Elevation+galapagos$Endemics+galapagos$Nearest+galapagos$Scruz+galapagos$Adjacent)
+summary(modelo_completo)
+```
+
+ Lo anterior permite pensar en un modelo que permita expresar la variable especie en funcion de las variables explicativas por que ?  
+   
+Por que la única variable significativa es endemicas en el modelo completo?  
+
+ 
+### Modelo1: Regresion Lineal Simple    
+
+  
+  $y_i=\beta_{0}+\beta_{1}x_{i}+e_{i}$  
+```{r,echo=TRUE}
+modelo1<-lm(galapagos$Species~galapagos$Elevation)
+summary(modelo1)
+```
+## Ejercicio:    
+a. Escriba el modelo  
+b. Interprete la pendiente y el intercepto  
+c. Es significativa la variable elevacion por que?  
+d. Cuánto de la variable elevación aporta a la explicación de elevación.  
+e. Realice un grafico donde se muestre el ajuste del modelo 1  
+
+f.Verifique si los residuos del modelo 1 cumplen con las condiciones para que el modelo sea valido  
+
+g. Verifique un segundo modelo2 utilizando las variables elevacion y área y compararlo con los modelos anteriores.  
+h. Analice las condiciones del modelo multiple   
+
+j. Corra el modelo propuesto por los autores y verifique sus resultados. Qué transformación se realizo y porque?
+   
+   
+
+
+ 
+
+
+## Regresión Logistica
+
+## Regresión Probit
